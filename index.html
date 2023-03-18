@@ -3,6 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <title>My JS Project</title>
+    <script>
+        const vacations = ['Junior developer', 'Middle developer', 'Senior developer', 'Junior QA', 'Middle QA', 'Senior QA', 'Project manager'];
+        //Принять от пользователя имена людей для набора в команду. Имена принять и сохранить в новом массиве.
+        function getNames(a) {
+            const names = [];
+            for (let i = 0; i < a.length; i++) {
+                names[i] = prompt('Введіть імя вашого ' + vacations[i] + ':');
+                //document.write(vacations[i] +' - '+ names[i] +';' + '<br>');
+            }
+            return names;
+        }
+
+        // Создать объект team в котором будут храниться новые объекты-сотрудники с параметрами name и position, данные для этих свойств добавляем из массивов.
+        function createTeam(a, b) {
+            let team = {};
+            for (let i = 0; i < a.length; i++) {
+                team['employee ' + (i + 1)] = {
+                    name: b[i],
+                    position: a[i]
+                }
+            }
+            return team;
+        }
+
+        //Добавить сотрудникам зарплаты (свойство salary) при помощи метода Math.random(), который будет выдавать произвольное число в промежутке между N1 и N2
+
+        function setSalary (e) {
+            for (let i = 0; i < e.length; i++) {
+                if (e[i].position.indexOf('Junior') == 0) {
+                    e[i].salary = Math.floor(Math.random() * 500 + 500);
+                }
+                else if (e[i].position.indexOf('Middle') == 0) {
+                    e[i].salary = Math.floor(Math.random() * 500 + 1500);
+                }
+                else if (e[i].position.indexOf('Senior') == 0) {
+                    e[i].salary = Math.floor(Math.random() * 500 + 2500);
+                }
+                else {
+                    e[i].salary = Math.floor(Math.random() * 500 + 4000);
+                }
+            }
+            return;
+        }
+
+        let d = createTeam(vacations, getNames(vacations)),
+            g = Object.values(d);
+
+        setSalary(g);
+
+        //Добавить каждому сотруднику метод tellAboutYourSelf(), который будет сообщать информацию о пользователе (например "Меня зовут John и я - Project manager. Я зарабатываю 4863$.")
+
+        for (let i = 0; i < g.length; i++ ) {
+            g[i].tellAboutYourSelf = function () {
+                let str = ('Мене звуть ' + g[i].name + ' і я ' + g[i].position + '. Я заробляю - ' + g[i].salary + '$.' + '<br>');
+                return str;
+            }
+            document.write(g[i].tellAboutYourSelf());
+        }
+
+        //Добавить объекту team метод showTeam(), который будет выводить информацию о всех сотрудниках в консоль в формате: "John - Project manager. Зарплата - 4863$.
+
+        d.showTeam = function () {
+            let h = Object.values(d);
+            for (let i = 0; i < h.length - 1; i++) {
+                console.log(h[i].name + ' - ' + h[i].position + '. Зарплатня - ' + h[i].salary + '$.' + '<br>');
+            }
+        }
+
+        console.log(d);
+
+        d.showTeam();
+
+    </script>
 </head>
 <body>
 
